@@ -53,7 +53,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
+st.title("Investor-State Dispute Enforcement Engine")  # Main app title
 # ---------------------------------------------------------------------------
 # CUSTOM CSS
 # ---------------------------------------------------------------------------

@@ -6,7 +6,7 @@ Monte Carlo simulation, and enforcement pathway mapping for African states.
 
 Run with:
     streamlit run app.py
-from the isds_app/ directory.
+from the isda_app/ directory.
 """
 
 from __future__ import annotations

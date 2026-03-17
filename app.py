@@ -1,5 +1,5 @@
 """
-ISDS Recovery Realism Engine — Streamlit Application
+Investor-State Dispute Analysis Engine — Streamlit Application
 =====================================================
 Professional dashboard for investor-state dispute settlement analysis,
 Monte Carlo simulation, and enforcement pathway mapping for African states.
@@ -48,12 +48,12 @@ from memo_generator import MemoGenerator
 # ---------------------------------------------------------------------------
 
 st.set_page_config(
-    page_title="Investor-State Dispute Enforcement Engine",
+    page_title="Investor-State Dispute Analysis Engine",
     page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
-st.title("Investor-State Dispute Enforcement Engine")  # Main app title
+st.title("Investor-State Dispute Analysis Engine")  # Main app title
 # ---------------------------------------------------------------------------
 # CUSTOM CSS
 # ---------------------------------------------------------------------------
@@ -755,7 +755,7 @@ with st.sidebar:
     <div style="text-align:center; padding: 10px 0 20px;">
         <div style="font-size:2rem;">⚖️</div>
         <div style="font-size:1.1rem; font-weight:800; color:#A8D8DC; letter-spacing:0.05em;">
-            Investor-State Dispute<br>Settlement Analysis Engine
+            Investor-State Dispute<br>Analysis Engine
         </div>
         <div style="font-size:0.7rem; color:rgba(255,255,255,0.55); margin-top:4px;">
             Professional dashboard for investor-state dispute settlement analysis, 
@@ -844,7 +844,7 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
 
 with tab1:
     st.markdown("## Case Database Explorer")
-    st.caption("Interactive database of ISDS cases involving African states. Sources: ICSID, UNCTAD, italaw.")
+    st.caption("Interactive database of ISDA cases involving African states. Sources: ICSID, UNCTAD, italaw.")
 
     cases_df = load_cases_df()
     stats = get_summary_stats(cases_df)
@@ -931,7 +931,7 @@ with tab1:
 
 with tab2:
     st.markdown("## Dispute Simulator")
-    st.caption("Monte Carlo simulation of ISDS dispute outcomes. Configure parameters and run simulation.")
+    st.caption("Monte Carlo simulation of ISDA dispute outcomes. Configure parameters and run simulation.")
 
     # ── Input Panel ──────────────────────────────────────────────────────────
     section_header("Dispute Parameters")
@@ -1783,7 +1783,7 @@ with tab6:
 
 st.markdown(
     '<div class="app-footer">'
-    'ISDS Recovery Realism Engine v1.0 · Data: ICSID, UNCTAD, BIICL, World Bank WGI, WJP · '
+    'ISDA Engine v1.0 · Data: ICSID, UNCTAD, BIICL, World Bank WGI, WJP · '
     'For research and educational purposes only. Not legal advice.'
     '</div>',
     unsafe_allow_html=True,

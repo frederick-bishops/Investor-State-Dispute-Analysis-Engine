@@ -1,4 +1,4 @@
-# ISDS Recovery Realism Engine
+# Investor-State Dispute Analysis Engine
 
 **Post-Award Enforcement and Settlement Simulator for African States**
 

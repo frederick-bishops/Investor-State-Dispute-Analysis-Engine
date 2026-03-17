@@ -14,7 +14,7 @@ from __future__ import annotations
 import sys
 import os
 
-# Ensure the isds_app directory is on the path when run from elsewhere
+# Ensure the isda_app directory is on the path when run from elsewhere
 sys.path.insert(0, os.path.dirname(__file__))
 
 import math

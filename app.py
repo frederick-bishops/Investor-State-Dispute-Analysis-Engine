@@ -818,7 +818,7 @@ with st.sidebar:
     st.divider()
     st.markdown(
         '<div style="font-size:0.7rem; color:rgba(255,255,255,0.4); text-align:center;">'
-        'Updated in 2026<br>'
+        'Updated<br>'
         'For research purposes.<br>'
     
         '</div>',

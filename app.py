@@ -70,6 +70,7 @@ def _inject_theme() -> None:
 
         html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
         .stApp { background-color: var(--app-bg); color: var(--text-primary); }
+        [data-testid="stAppViewContainer"] { background-color: var(--app-bg); color: var(--text-primary); }
 
         [data-testid="stSidebar"] {
             background-color: var(--sidebar-bg);
@@ -78,6 +79,30 @@ def _inject_theme() -> None:
 
         [data-testid="stSidebar"] * { color: var(--text-secondary); }
         [data-testid="stSidebar"] label, [data-testid="stSidebar"] .stMarkdown p { color: var(--text-secondary) !important; }
+        [data-testid="stSidebar"] [data-baseweb="select"] > div,
+        [data-testid="stSidebar"] [data-baseweb="input"] > div {
+            background-color: color-mix(in srgb, var(--panel-bg) 82%, var(--sidebar-bg) 18%) !important;
+            border-color: var(--border) !important;
+        }
+        [data-testid="stSidebar"] [data-baseweb="select"] div,
+        [data-testid="stSidebar"] [data-baseweb="select"] span,
+        [data-testid="stSidebar"] [data-baseweb="input"] input,
+        [data-testid="stSidebar"] input[type="text"],
+        [data-testid="stSidebar"] input[type="number"],
+        [data-testid="stSidebar"] textarea {
+            color: var(--text-primary) !important;
+            -webkit-text-fill-color: var(--text-primary) !important;
+            opacity: 1 !important;
+        }
+        [data-testid="stSidebar"] [data-baseweb="select"] input::placeholder,
+        [data-testid="stSidebar"] [data-baseweb="input"] input::placeholder {
+            color: var(--text-muted) !important;
+            opacity: 1 !important;
+        }
+        [data-testid="stSidebar"] .stCaption,
+        [data-testid="stSidebar"] small {
+            color: var(--text-muted) !important;
+        }
 
         .dds-insignia {
             font-size: 0.76rem;
@@ -137,17 +162,51 @@ def _inject_theme() -> None:
 
         div[data-testid="stMetricValue"] { color: var(--text-primary) !important; }
 
-        .stTabs [data-baseweb="tab-list"] { gap: 0.2rem; }
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 0.45rem;
+            width: 100%;
+        }
         .stTabs [data-baseweb="tab"] {
             height: auto;
             white-space: normal;
             border: 1px solid var(--border);
             border-radius: 6px 6px 0 0;
             color: var(--text-secondary);
+            flex: 1 1 0;
+            justify-content: center;
+            padding: 0.6rem 0.75rem 0.56rem;
+            font-size: 0.88rem;
+            line-height: 1.3;
+            text-align: center;
         }
         .stTabs [aria-selected="true"] {
             background: color-mix(in srgb, var(--accent) 26%, var(--panel-bg) 74%);
             color: var(--text-primary) !important;
+        }
+        @media (max-width: 1180px) {
+            .stTabs [data-baseweb="tab-list"] { gap: 0.3rem; }
+            .stTabs [data-baseweb="tab"] {
+                flex: 1 1 auto;
+                font-size: 0.82rem;
+                padding: 0.52rem 0.55rem;
+            }
+        }
+
+        [data-testid="stHeader"] {
+            background-color: color-mix(in srgb, var(--app-bg) 86%, var(--panel-bg) 14%) !important;
+            border-bottom: 1px solid var(--border);
+        }
+        [data-testid="stHeader"] *,
+        [data-testid="stToolbar"] *,
+        [data-testid="stDecoration"] * {
+            color: var(--text-secondary) !important;
+        }
+        [data-testid="stHeader"] button:hover,
+        [data-testid="stToolbar"] button:hover {
+            color: var(--text-primary) !important;
+        }
+        [data-testid="stStatusWidget"] * {
+            color: var(--text-secondary) !important;
         }
         </style>
         """,
@@ -280,7 +339,7 @@ data_window = f"{years.min()}–{years.max()}" if not years.empty else "N/A"
 with st.sidebar:
     st.markdown('<div class="dds-insignia">Designing Decision Systems</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="dds-meta">Data window: {data_window}</div>', unsafe_allow_html=True)
-    stage = st.radio("Analytical Stage", ["Pre-award", "Post-award"], horizontal=False)
+    stage = st.radio("Analytical Stage", ["Pre-award framing", "Post-award realization"], horizontal=False)
     st.divider()
     st.markdown("**Case framing inputs**")
     sel_state = st.selectbox("Respondent state", sorted(COUNTRY_PROFILES.keys()), index=0)
@@ -294,18 +353,17 @@ with st.sidebar:
     seed = st.number_input("Seed", min_value=0, max_value=99999, value=42) if use_seed else None
 
     st.divider()
-    st.caption("Use the stage switch to separate pre-award framing from post-award realization analysis.")
 
 # workflow tabs
 steps = st.tabs(
     [
-        "1) Define Case",
-        "2) Inspect Evidence",
-        "3) Inspect Assumptions",
-        "4) Run Scenario",
-        "5) Compare Pathways",
-        "6) Recommendation",
-        "7) Export Rationale",
+        "Step 1 · Define Case",
+        "Step 2 · Inspect Evidence",
+        "Step 3 · Inspect Assumptions",
+        "Step 4 · Run Scenario",
+        "Step 5 · Compare Pathways",
+        "Step 6 · Recommendation",
+        "Step 7 · Export Rationale",
     ]
 )
 
@@ -471,7 +529,7 @@ with steps[4]:
         fig.update_layout(title="Post-award enforcement pathway comparison", height=360, margin=dict(l=180, r=25, t=60, b=45))
         st.plotly_chart(fig, use_container_width=True)
 
-        if stage == "Pre-award":
+        if stage == "Pre-award framing":
             analyst_note("Pre-award emphasis: treat pathway scores as bargaining leverage and scenario conditioning, not immediate execution instructions.")
         else:
             analyst_note("Post-award emphasis: pathway ranking indicates near-term sequencing for recognition, discovery, and attachment actions.")
@@ -493,7 +551,7 @@ with steps[5]:
         else:
             confidence = "Cautious"
 
-        if stage == "Pre-award":
+        if stage == "Pre-award framing":
             rec_line = "Proceed with arbitration preparation while targeting structured settlement windows tied to enforceable jurisdictions."
         else:
             rec_line = "Proceed with phased enforcement in top-ranked jurisdictions while preserving settlement optionality."
@@ -542,5 +600,3 @@ with steps[6]:
             )
         with st.expander("Preview rationale", expanded=False):
             st.code(memo[:7000] + "\n\n[Preview truncated]", language=None)
-
-st.caption("Terminology note: this system uses ISDS (Investor-State Dispute Settlement) consistently across stages and exports.")

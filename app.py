@@ -19,7 +19,7 @@ from memo_generator import MemoGenerator
 from simulation_engine import BehavioralModule, DisputeProfile, EnforcementPathway, SimulationEngine
 
 st.set_page_config(
-    page_title="ISDS Claim-to-Recovery Decision System",
+    page_title="Investor-State Dispute Analysis Engine",
     page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -326,7 +326,7 @@ def build_recovery_chart(dist: np.ndarray) -> go.Figure:
 _inject_theme()
 apply_plotly_template()
 
-st.title("ISDS Claim-to-Recovery Decision System")
+st.title("Investor-State Dispute Analysis Engine")
 st.markdown(
     '<div class="subtitle">Structured decision support for pre-award and post-award pathway selection under enforcement uncertainty.</div>',
     unsafe_allow_html=True,
